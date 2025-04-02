@@ -42,3 +42,6 @@ testing {
   }
 }
 
+signing {
+  useGpgCmd()
+}

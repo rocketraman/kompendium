@@ -6,6 +6,8 @@ import io.bkbn.kompendium.oas.component.Components
 import io.bkbn.kompendium.oas.info.Info
 import io.bkbn.kompendium.oas.path.Path
 import io.bkbn.kompendium.oas.server.Server
+import kotlinx.serialization.EncodeDefault
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
 
 /**
@@ -14,9 +16,9 @@ import kotlinx.serialization.Serializable
  * https://spec.openapis.org/oas/v3.1.0#openapi-object
  *
  * @param openapi This string MUST be the version number of the OpenAPI Specification that the OpenAPI document uses.
- * Kompendium only supports OpenAPI 3.1
+ * Kompendium only supports OpenAPI `3.1.0`.
  * @param jsonSchemaDialect The default value for the $schema keyword within Schema Objects contained within this OAS document.
- * Kompendium only supports the 2020 draft
+ * Kompendium only supports `https://spec.openapis.org/oas/3.1/dialect/base`.
  * @param info Provides metadata about the API.
  * @param servers An array of Server Objects, which provide connectivity information to a target server.
  * If the property is not provided, or is an empty array, the default value would be a Server Object with a url value of /.
@@ -33,7 +35,7 @@ data class OpenApiSpec(
   @EncodeDefault(EncodeDefault.Mode.ALWAYS)
   val openapi: String = "3.1.0",
   @EncodeDefault(EncodeDefault.Mode.ALWAYS)
-  val jsonSchemaDialect: String = "https://json-schema.org/draft/2020-12/schema",
+  val jsonSchemaDialect: String = "https://spec.openapis.org/oas/3.1/dialect/base",
   val info: Info,
   val servers: MutableList<Server> = mutableListOf(),
   val paths: MutableMap<String, Path> = mutableMapOf(),
