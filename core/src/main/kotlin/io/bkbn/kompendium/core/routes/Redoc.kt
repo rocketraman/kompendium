@@ -1,7 +1,6 @@
 package io.bkbn.kompendium.core.routes
 
 import io.ktor.http.HttpStatusCode
-import io.ktor.server.application.call
 import io.ktor.server.html.respondHtml
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
@@ -21,7 +20,12 @@ import kotlinx.html.unsafe
  * @param path path to docs resource
  * @param specUrl url to point ReDoc to the OpenAPI json document
  */
-fun Route.redoc(pageTitle: String = "Docs", path: String = "/docs", specUrl: String = "/openapi.json") {
+fun Route.redoc(
+  pageTitle: String = "Docs",
+  path: String = "/docs",
+  specUrl: String = "/openapi.json",
+  cdn: String = "https://cdn.jsdelivr.net/npm",
+) {
   route(path) {
     get {
       call.respondHtml(HttpStatusCode.OK) {
@@ -49,7 +53,7 @@ fun Route.redoc(pageTitle: String = "Docs", path: String = "/docs", specUrl: Str
         body {
           unsafe { +"<redoc spec-url='$specUrl'></redoc>" }
           script {
-            src = "https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"
+            src = "$cdn/redoc@next/bundles/redoc.standalone.js"
           }
         }
       }

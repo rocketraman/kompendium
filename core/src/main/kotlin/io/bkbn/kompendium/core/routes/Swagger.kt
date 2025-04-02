@@ -1,6 +1,5 @@
 package io.bkbn.kompendium.core.routes
 
-import io.ktor.server.application.call
 import io.ktor.server.html.respondHtml
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
@@ -28,7 +27,8 @@ fun Route.swagger(
   pageTitle: String = "Docs",
   path: String = "/swagger-ui",
   specUrl: String = "/openapi.json",
-  swaggerVersion: String? = null
+  swaggerVersion: String? = null,
+  cdn: String = "https://cdn.jsdelivr.net/npm",
 ) {
   val swaggerVersionSuffix = if (swaggerVersion == null) "" else "@$swaggerVersion"
 
@@ -47,7 +47,7 @@ fun Route.swagger(
             content = "width=device-width, initial-scale=1"
           }
           link {
-            href = "https://unpkg.com/swagger-ui-dist$swaggerVersionSuffix/swagger-ui.css"
+            href = "$cdn/swagger-ui-dist$swaggerVersionSuffix/swagger-ui.css"
             rel = "stylesheet"
           }
         }
@@ -56,10 +56,10 @@ fun Route.swagger(
             id = "swagger-ui"
           }
           script {
-            src = "https://unpkg.com/swagger-ui-dist$swaggerVersionSuffix/swagger-ui-standalone-preset.js"
+            src = "$cdn/swagger-ui-dist$swaggerVersionSuffix/swagger-ui-standalone-preset.js"
           }
           script {
-            src = "https://unpkg.com/swagger-ui-dist$swaggerVersionSuffix/swagger-ui-bundle.js"
+            src = "$cdn/swagger-ui-dist$swaggerVersionSuffix/swagger-ui-bundle.js"
           }
           unsafe {
             +"""
