@@ -27,9 +27,12 @@ import kotlinx.serialization.Serializable
  * @param tags A list of tags used by the document with additional metadata.
  * @param externalDocs Additional external documentation.
  */
+@OptIn(ExperimentalSerializationApi::class)
 @Serializable
 data class OpenApiSpec(
+  @EncodeDefault(EncodeDefault.Mode.ALWAYS)
   val openapi: String = "3.1.0",
+  @EncodeDefault(EncodeDefault.Mode.ALWAYS)
   val jsonSchemaDialect: String = "https://json-schema.org/draft/2020-12/schema",
   val info: Info,
   val servers: MutableList<Server> = mutableListOf(),
